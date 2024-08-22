@@ -1,0 +1,37 @@
+<header class="relative flex flex-col bg-white">
+        <div class="min-h-[50px] md:min-h-[74px] relative bg-[url('{{ 'header-bg.png' | asset_url }}')] bg-center flex justify-center items-center">
+            <p class="text-base md:text-xl 2xl:text-2xl text-white font-[800] inter">Black Friday Sale - Save $100</p>
+        </div>
+        <div class="max-w-[1300px] w-full gap-5 mx-auto flex justify-between items-center px-5 py-6">
+            <div class="flex gap-10 items-center">
+                <a href="{{ shop.url }}"> 
+                    <img class="w-[100px] md:w-auto" src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name }}">
+                </a>
+                <ul class="hidden lg:flex items-center gap-10 text-[#27292D] text-base 2xl:text-lg font-[300]">
+                    <li> <a href="#">How It Works</a> </li>
+                    <li> <a href="#">Signals</a> </li>
+                    <li> <a href="#">Reviews</a> </li>
+                    <li> <a href="#">Blog</a> </li>
+                </ul>
+            </div>
+
+            <div class="flex items-center gap-3 lg:gap-5">
+                <a class="bg-[#07C961] p-[10px_20px] 2xl:p-[15px_30px] rounded-full text-white inter" href="#">Buy Now</a>
+                <button class="w-[40px] h-[40px] 2xl:w-[53px] 2xl:h-[53px] bg-[#4B93D0] rounded-full flex items-center justify-center">
+                    <img class="w-[20px] 2xl:w-auto" src="{{ 'usericon.svg' | asset_url }}" alt="User Icon">
+                </button>
+                <button class="w-[40px] h-[40px] flex lg:hidden flex-col gap-[5px] items-center justify-center px-3 2xl:w-[53px] 2xl:h-[53px] bg-[#4B93D0] rounded-full flex items-center justify-center">
+                    <span class="w-full h-[1px] bg-white"></span>
+                    <span class="w-full h-[1px] bg-white"></span>
+                    <span class="w-full h-[1px] bg-white"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    {% schema %}
+      {
+        "name": "Section name",
+        "settings": []
+      }
+    {% endschema %}
