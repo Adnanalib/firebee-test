@@ -1,0 +1,169 @@
+<div class="h-[10px] bg-gradient-to-r from-[#8BF2B5] to-[#35C8EB]"></div>
+<footer class="bg-[#12151A] px-5 py-8 relative">
+    <div class="max-w-[1300px] w-full mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="lg:w-[350px] flex lg:justify-between gap-20 lg:gap-10">
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-xl 2xl:text-2xl text-white font-[300]">About</h4>
+                    <ul class="flex flex-col gap-2 text-lg text-white font-[300]">
+                        <li> <a href="{{ shop.url }}">Home</a> </li>
+                        <li> <a href="{{ shop.url }}/product">Product</a> </li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-xl 2xl:text-2xl text-white font-[300]">Support</h4>
+                    <ul class="flex flex-col gap-2 text-lg text-white font-[300]">
+                        <li> <a href="{{ shop.url }}/activate">Activate</a> </li>
+                        <li> <a href="{{ shop.url }}/login">Login</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-xl 2xl:text-2xl text-white font-[300]">Find Us On</h4>
+                <ul class="flex gap-5">
+                    <li> <a href="#"><img src="{{ 'youtube.svg' | asset_url }}" alt="YouTube"></a> </li>
+                    <li> <a href="#"><img src="{{ 'tweeter.svg' | asset_url }}" alt="Twitter"></a> </li>
+                    <li> <a href="#"><img src="{{ 'facebook.svg' | asset_url }}" alt="Facebook"></a> </li>
+                    <li> <a href="#"><img src="{{ 'instag.svg' | asset_url }}" alt="Instagram"></a> </li>
+                    <li> <a href="#"><img src="{{ 'pintrest.svg' | asset_url }}" alt="Pinterest"></a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="relative z-10 w-full border-t border-[#525252] pt-10 mt-10">
+        <div class="max-w-[1300px] w-full mx-auto">
+            <div class="flex flex-col lg:flex-row gap-10 justify-between">
+                <div class="max-w-[600px] 2xl:max-w-none flex flex-col items-start gap-4 text-[#A4A4A5] text-base 2xl:text-lg">
+                    <img class="w-[200px] md:w-[150px] 2xl:w-auto" src="{{ 'white-logo.svg' | asset_url }}" alt="White Logo">
+                    <p>Copyright © {{ 'now' | date: "%Y" }} Firebee Technologies, Inc. All rights reserved.</p>
+                    <p class="text-xs 2xl:text-sm">The statements on this page have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+                </div>
+                <ul class="text-[#A4A4A5] text-base 2xl:text-lg flex items-center gap-5 font-[300]">
+                    <li> <a href="{{ shop.url }}/privacy-policy">Privacy Policy</a> </li>
+                    <li> <a href="{{ shop.url }}/terms-of-service">Terms of Service</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <img class="absolute bottom-0 left-0 right-0" src="{{ 'footer-bg.svg' | asset_url }}" alt="Footer Background">
+</footer>
+
+{% if template == 'product' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Slick JS -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){   
+        $('.slick-product-slider').slick({
+            dots: false,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            asNavFor: '.slick-flip-slider-nav',
+            autoplay: false
+        });
+        $('.slick-flip-slider-nav').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            asNavFor: '.slick-product-slider',
+            dots: false,
+            centerMode: false,
+            focusOnSelect: true,
+            arrows: false,
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.accordion-button').click(function() {
+            // Toggle the current content
+            $(this).next('.accordion-content').slideToggle();
+
+            // Change the icon of the clicked button
+            $(this).find('.icon').text(function(i, text) {
+                return text === "+" ? "-" : "+";
+            });
+
+            // Close other open contents and reset their icons
+            $('.accordion-content').not($(this).next()).slideUp();
+            $('.accordion-button').not(this).find('.icon').text('+');
+        });
+    });
+
+  document.addEventListener('DOMContentLoaded', function() {
+  var addToCartButton = document.getElementById('firebee-add-to-cart');
+
+  if (addToCartButton) {
+    addToCartButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default anchor click behavior
+
+      var selectedRadio = document.querySelector('input.variant-radio--btn:checked');
+      if (selectedRadio) {
+        var variantId = selectedRadio.value;
+        var quantity = 1;
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: quantity
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert('Item added to cart!');
+        })
+        .catch(error => {
+          console.error('Error adding item to cart:', error);
+        });
+      } else {
+        console.error('No variant selected.');
+      }
+    });
+  }
+
+
+  // Get all variant-box elements
+  var variantBoxes = document.querySelectorAll('.variant-box');
+
+  // Add click event listener to each variant-box
+  variantBoxes.forEach(function(box) {
+    box.addEventListener('click', function() {
+      // Find the radio button inside this variant-box
+      var radioButton = box.querySelector('input[type="radio"]');
+      
+      // If there's a radio button, check it and uncheck others
+      if (radioButton) {
+        // Uncheck all other radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(function(rb) {
+          rb.checked = false;
+        });
+        
+        // Check the clicked radio button
+        radioButton.checked = true;
+
+        // Optionally, dispatch a change event if there are any listeners
+        radioButton.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+});
+
+
+
+</script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": []
+  }
+{% endschema %}
